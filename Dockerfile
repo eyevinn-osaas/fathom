@@ -20,6 +20,7 @@ HEALTHCHECK --retries=10 CMD ["wget", "-qO-", "http://localhost:8080/health"]
 RUN apk add --update --no-cache bash ca-certificates
 WORKDIR /app
 COPY --from=binarybuilder /go/src/github.com/usefathom/fathom/fathom .
+COPY ./entrypoint.sh ./
 VOLUME ["/data"]
 ENV FATHOM_DATABASE_NAME="/data/fathom.db"
-CMD ["./fathom", "server"]
+CMD ["./entrypoint.sh"]
